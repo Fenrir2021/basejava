@@ -6,19 +6,20 @@ import java.util.Arrays;
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
     public int length = storage.length;
-
+    public int size = 1;
     void clear() {
-        for(int i=0; i < length; i++) {
-           storage[i]= null;
+        for (int i = 0; i < length; i++) {
+            storage[i] = null;
         }
         System.out.println("Cleared!");
     }
 
     void save(Resume r) {
-        for (int i=0;i<length;i++) {
-            if (storage[i] == null){
+        for (int i = 0; i < length; i++) {
+            if (storage[i] == null) {
                 storage[i] = r;
                 System.out.println("saved ");
+                size++;
                 return;
             }
         }
@@ -27,17 +28,18 @@ public class ArrayStorage {
     }
 
     String get(String uuid) {
-        return uuid;
+        return uuid; //storage[uuid];
     }
 
     void delete(String uuid) {
-       // for (int i=0; i< length; i++) {
-                //   if (storage[i] = uuid){
+        // for (int i=0; i< length; i++) {
+        //   if (storage[i] = uuid){
         //       storage[i] = null;
         //   }
         //storage[uuid] = null;
-            System.out.println("item deleted");
-       // }
+        System.out.println("item deleted");
+        size--;
+        // }
 
     }
 
@@ -53,11 +55,12 @@ public class ArrayStorage {
     }
 
     int size() {
-        int lenArr = 0;
-        for(int i=0; i < length; i++) {
-            if (storage[i] != null)++lenArr;
-        }
-        System.out.println("size " + lenArr);
-        return lenArr;
+       // int lenArr = 0;
+       // for (int i = 0; i < length; i++) {
+       //     if (storage[i] != null) ++lenArr;
+       // }
+        System.out.println("size " + size);
+
+        return size;
     }
 }
