@@ -7,6 +7,7 @@ public class ArrayStorage {
     Resume[] storage = new Resume[10000];
     public int length = storage.length;
     public int size = 1;
+
     void clear() {
         for (int i = 0; i < length; i++) {
             storage[i] = null;
@@ -55,10 +56,10 @@ public class ArrayStorage {
     }
 
     int size() {
-       // int lenArr = 0;
-       // for (int i = 0; i < length; i++) {
-       //     if (storage[i] != null) ++lenArr;
-       // }
+        // int lenArr = 0;
+        // for (int i = 0; i < length; i++) {
+        //     if (storage[i] != null) ++lenArr;
+        // }
         System.out.println("size " + size);
 
         return size;
