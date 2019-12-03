@@ -19,7 +19,7 @@ public class ArrayStorage {
         // for (int i = 0; i < length; i++) {
         //    if (storage[i] == null) {
         storage[size] = r;
-        System.out.println("saved ");
+        // System.out.println("saved ");
         size++;
         //return;
         //}
@@ -42,6 +42,7 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             if (String.valueOf(storage[i]).equals(uuid)) {
                 storage[i] = null;
+                System.arraycopy(storage, i + 1, storage, i, size - 1);
                 System.out.println("item deleted");
                 size--;
             }
@@ -57,7 +58,6 @@ public class ArrayStorage {
         //getAll = Arrays.toString(storage);
         System.arraycopy(storage, 0, getAll, 0, size);
         //System.out.println();
-
         return getAll;
     }
 
