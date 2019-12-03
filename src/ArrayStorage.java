@@ -3,12 +3,12 @@
  */
 public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
-    private int length = storage.length;
+    //private int length = storage.length;
     private int size = 0;
     //private Resume uuid;
 
     void clear() {                                                             // ++
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
         System.out.println("Cleared!");
@@ -16,44 +16,36 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {                                                     // ++
-        for (int i = 0; i < length; i++) {
-            if (storage[i] == null) {
-                storage[i] = r;
-                System.out.println("saved ");
-                size++;
-                return;
-            }
-        }
-
-
+        // for (int i = 0; i < length; i++) {
+        //    if (storage[i] == null) {
+        storage[size] = r;
+        System.out.println("saved ");
+        size++;
+        //return;
+        //}
+        //}
     }
 
-    String get(String uuid) {                                                    // ++
-
-
+    Resume get(String uuid) {                                       // ++
         int a = 0;
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < size; i++) {
             if (String.valueOf(storage[i]).equals(uuid)) {
-
                 //System.out.println(storage[i]);
                 // System.out.println("getting! ");
                 a = i;
-               // size++;
-            }else return uuid;
-
+            } //else return storage[a];
         }
-        return String.valueOf(storage[a]); //storage[uuid];
+        return storage[a];
     }
 
     void delete(String uuid) {                                                  // ++
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < size; i++) {
             if (String.valueOf(storage[i]).equals(uuid)) {
                 storage[i] = null;
                 System.out.println("item deleted");
                 size--;
             }
         }
-
     }
 
 
@@ -61,20 +53,12 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {                                                          // ++
-        //String getAll;
+        Resume getAll[] = new Resume[size];
         //getAll = Arrays.toString(storage);
-        for (Resume s : storage
-        ) {
-            if (s != null) {
-                System.out.print(s + " ");
+        System.arraycopy(storage, 0, getAll, 0, size);
+        //System.out.println();
 
-            }
-
-
-        }
-        System.out.println();
-
-        return new Resume[0];
+        return getAll;
     }
 
     int size() {                                                                 // ++
