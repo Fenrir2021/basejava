@@ -32,8 +32,12 @@ public class ArrayStorage {
             if (String.valueOf(storage[i]).equals(uuid)) {
                 //System.out.println(storage[i]);
                 // System.out.println("getting! ");
-                a = i;
-            } //else return storage[a];
+                return storage[i];
+            }
+            a = i;
+        }
+        if (a > size) {
+            return null;
         }
         return storage[a];
     }
@@ -42,9 +46,10 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             if (String.valueOf(storage[i]).equals(uuid)) {
                 storage[i] = null;
-                System.arraycopy(storage, i + 1, storage, i, size - 1);
+                System.arraycopy(storage, i + 1, storage, i, size - 1 - i);
                 System.out.println("item deleted");
                 size--;
+                break;
             }
         }
     }
@@ -55,19 +60,12 @@ public class ArrayStorage {
      */
     Resume[] getAll() {                                                          // ++
         Resume getAll[] = new Resume[size];
-        //getAll = Arrays.toString(storage);
         System.arraycopy(storage, 0, getAll, 0, size);
-        //System.out.println();
         return getAll;
     }
 
     int size() {                                                                 // ++
-        // int lenArr = 0;
-        // for (int i = 0; i < length; i++) {
-        //     if (storage[i] != null) ++lenArr;
-        // }
         System.out.println("size " + size);
-
         return size;
     }
 }
