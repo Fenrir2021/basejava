@@ -17,21 +17,20 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) { //TODO getIndex if resume present           //++
-        int check = getIndex(resume.getUuid());
-        if (check != -1) {
-            save(storage[check]);
+        int getIndex = getIndex(resume.getUuid());
+        if (getIndex != -1) {
+            storage[getIndex] = resume;
         } else System.out.println("Not found in resume");
 
     }
 
     public void save(Resume resume) {     //TODO getIndex if resume not present     //++
-        int check = getIndex(resume.getUuid());
         int length = storage.length;
 
-        if (check == -1) {
+        if (getIndex(resume.getUuid()) == -1) {
             storage[size] = resume;
             size++;
-        } else if (size == length) {
+        } else if (size >= length) {
             System.out.println("Storage full");
         } else {
             System.out.println(resume.getUuid() + " Already in resume");
@@ -44,7 +43,6 @@ public class ArrayStorage {
         if (getIndex != -1) {
             return storage[getIndex];
         } else {
-            System.out.println(" Not found ");
             return null;
         }
     }
@@ -52,10 +50,11 @@ public class ArrayStorage {
     public void delete(String uuid) {     //TODO getIndex if resume present           //
         int getIndex = getIndex(uuid);
         if (getIndex != -1) {
-            System.arraycopy(storage, getIndex + 1, storage, getIndex, size - 1 - getIndex);
+            storage[getIndex] = storage[size - 1];
+            storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("ERROR");
+            System.out.println("Resume " + uuid + "not exist");
         }
 
     }
@@ -65,7 +64,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {                                                          // ++
-        Resume [] getAll = new Resume[size];
+        Resume[] getAll = new Resume[size];
         System.arraycopy(storage, 0, getAll, 0, size);
         return getAll;
     }
@@ -76,7 +75,7 @@ public class ArrayStorage {
 
     private int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
-            if ((storage[i].getUuid()).equals(uuid)) {
+            if (uuid.equals((storage[i].getUuid()))) {
                 return i;
             }
         }
