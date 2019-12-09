@@ -35,7 +35,6 @@ public class ArrayStorage {
         } else {
             System.out.println(resume.getUuid() + " Already in resume");
         }
-
     }
 
     public Resume get(String uuid) {                                               // ++
@@ -50,7 +49,7 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         int getIndex = getIndex(uuid);
-        
+
         if (getIndex != -1) {
             storage[getIndex] = storage[size - 1];
             storage[size - 1] = null;
