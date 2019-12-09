@@ -43,6 +43,7 @@ public class ArrayStorage {
         if (getIndex != -1) {
             return storage[getIndex];
         } else {
+            System.out.println(" Not found ");
             return null;
         }
     }
