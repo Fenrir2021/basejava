@@ -16,15 +16,15 @@ public class ArrayStorage {
         size = 0;
     }
 
-    public void update(Resume resume) { //TODO getIndex if resume present           //++
+    public void update(Resume resume) {
         int getIndex = getIndex(resume.getUuid());
+
         if (getIndex != -1) {
             storage[getIndex] = resume;
         } else System.out.println("Not found in resume");
-
     }
 
-    public void save(Resume resume) {     //TODO getIndex if resume not present     //++
+    public void save(Resume resume) {
         int length = storage.length;
 
         if (getIndex(resume.getUuid()) == -1) {
@@ -40,6 +40,7 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {                                               // ++
         int getIndex = getIndex(uuid);
+
         if (getIndex != -1) {
             return storage[getIndex];
         } else {
@@ -47,8 +48,9 @@ public class ArrayStorage {
         }
     }
 
-    public void delete(String uuid) {     //TODO getIndex if resume present           //
+    public void delete(String uuid) {
         int getIndex = getIndex(uuid);
+        
         if (getIndex != -1) {
             storage[getIndex] = storage[size - 1];
             storage[size - 1] = null;
@@ -56,10 +58,7 @@ public class ArrayStorage {
         } else {
             System.out.println("Resume " + uuid + "not exist");
         }
-
     }
-
-
     /**
      * @return array, contains only Resumes in storage (without null)
      */
