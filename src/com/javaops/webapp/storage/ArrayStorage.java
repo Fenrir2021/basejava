@@ -27,13 +27,13 @@ public class ArrayStorage {
     public void save(Resume resume) {
         int length = storage.length;
 
-        if (getIndex(resume.getUuid()) == -1) {
-            storage[size] = resume;
-            size++;
+        if (getIndex(resume.getUuid()) != -1) {
+            System.out.println(resume.getUuid() + " Already in resume");
         } else if (size >= length) {
             System.out.println("Storage full");
         } else {
-            System.out.println(resume.getUuid() + " Already in resume");
+            storage[size] = resume;
+            size++;
         }
     }
 
@@ -59,6 +59,7 @@ public class ArrayStorage {
             System.out.println("Resume " + uuid + "not exist");
         }
     }
+
     /**
      * @return array, contains only Resumes in storage (without null)
      */
