@@ -2,17 +2,15 @@ package com.javaops.webapp.storage;
 
 import com.javaops.webapp.model.Resume;
 
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
-    private Resume[] storage = new Resume[10_000];
-    private int size = 0;
+public class ArrayStorage extends AbstractArrayStorage {
 
-    public void clear() {                                                             // ++
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+    public void clear() {
+        Arrays.fill(storage, 0, size,null);// ++
         size = 0;
     }
 
@@ -21,30 +19,17 @@ public class ArrayStorage {
 
         if (getIndex != -1) {
             storage[getIndex] = resume;
-        } else System.out.println("Not found in resume");
+        } else System.out.println("Resume " + resume.getUuid() + "Not found in resume");
     }
 
     public void save(Resume resume) {
-        int length = storage.length;
-
         if (getIndex(resume.getUuid()) != -1) {
             System.out.println(resume.getUuid() + " Already in resume");
-        } else if (size >= length) {
-            System.out.println("Storage full");
+        } else if (size == STORAGE_LIMIT) {
+            System.out.println("Storage overflow");
         } else {
             storage[size] = resume;
             size++;
-        }
-    }
-
-    public Resume get(String uuid) {                                               // ++
-        int getIndex = getIndex(uuid);
-
-        if (getIndex != -1) {
-            return storage[getIndex];
-        } else {
-            System.out.println(" Not found ");
-            return null;
         }
     }
 
@@ -64,16 +49,10 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {                                                          // ++
-        Resume[] getAll = new Resume[size];
-        System.arraycopy(storage, 0, getAll, 0, size);
-        return getAll;
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
-    public int size() {                                                                 // ++
-        return size;
-    }
-
-    private int getIndex(String uuid) {
+    protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid.equals((storage[i].getUuid()))) {
                 return i;
