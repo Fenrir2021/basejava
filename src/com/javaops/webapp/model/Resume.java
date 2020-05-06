@@ -3,13 +3,17 @@ package com.javaops.webapp.model;
 /**
  * Initial resume class
  */
-public class Resume implements Comparable<Resume>{
+public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private String uuid;
 
     public String getUuid() {
         return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     @Override
@@ -25,10 +29,6 @@ public class Resume implements Comparable<Resume>{
     @Override
     public int hashCode() {
         return uuid.hashCode();
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     @Override

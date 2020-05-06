@@ -16,23 +16,24 @@ public abstract class AbstractArrayStorage implements Storage {
     public int size() {
         return size;
     }
+
     public void clear() {
-        Arrays.fill(storage, 0, size,null);// ++
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void update(Resume resume) {
-        int getIndex = getIndex(resume.getUuid());
+        int index = getIndex(resume.getUuid());
 
-        if (getIndex != -1) {
-            storage[getIndex] = resume;
+        if (index > 0) {
+            storage[index] = resume;
         } else System.out.println("Resume " + resume.getUuid() + "Not found in resume");
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    public Resume[] getAll() {                                                          // ++
+    public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
@@ -50,10 +51,10 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void delete(String uuid) {
-        int getIndex = getIndex(uuid);
+        int index = getIndex(uuid);
 
-        if (getIndex != -1) {
-            fillElement(getIndex);
+        if (index != -1) {
+            fillElement(index);
             storage[size - 1] = null;
             size--;
         } else {
@@ -62,10 +63,10 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public Resume get(String uuid) {
-        int getIndex = getIndex(uuid);
+        int index = getIndex(uuid);
 
-        if (getIndex != -1) {
-            return storage[getIndex];
+        if (index != -1) {
+            return storage[index];
         } else {
             System.out.println(" Not found ");
             return null;
