@@ -40,10 +40,12 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
 
-        if (index != -1) {
+        if (index < -STORAGE_LIMIT) {
             System.out.println(resume.getUuid() + " Already in resume");
         } else if (size == STORAGE_LIMIT) {
             System.out.println("Storage overflow");
+        } else if (index > -1) {
+            System.out.println(resume.getUuid() + " Already in resume");
         } else {
             insertElement(resume, index);
             size++;
