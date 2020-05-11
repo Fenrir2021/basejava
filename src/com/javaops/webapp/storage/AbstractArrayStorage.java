@@ -25,9 +25,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         int index = getIndex(resume.getUuid());
 
-        if (index > 0) {
+        if (index > -1) {
             storage[index] = resume;
-        } else System.out.println("Resume " + resume.getUuid() + "Not found in resume");
+        } else System.out.println("Resume " + resume.getUuid() + " Not found in resume");
     }
 
     /**
@@ -40,9 +40,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
 
-        if (index < -STORAGE_LIMIT) {
-            System.out.println(resume.getUuid() + " Already in resume");
-        } else if (size == STORAGE_LIMIT) {
+        if (size == STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else if (index > -1) {
             System.out.println(resume.getUuid() + " Already in resume");
@@ -55,22 +53,22 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = getIndex(uuid);
 
-        if (index != -1) {
+        if (index > -1) {
             fillElement(index);
             storage[size - 1] = null;
             size--;
         } else {
-            System.out.println("Resume " + uuid + "not exist");
+            System.out.println("Resume " + uuid + " not exist");
         }
     }
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
 
-        if (index != -1) {
+        if (index > -1) {
             return storage[index];
         } else {
-            System.out.println(" Not found ");
+            System.out.println("Resume " + uuid + " Not found ");
             return null;
         }
     }

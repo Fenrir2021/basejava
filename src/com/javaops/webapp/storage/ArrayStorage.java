@@ -23,6 +23,6 @@ public class ArrayStorage extends AbstractArrayStorage {
                 return i;
             }
         }
-        return -STORAGE_LIMIT;
+        return -1;
     }
 }
