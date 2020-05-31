@@ -16,6 +16,6 @@ public class MainReflection {
         field.set(resume, "new_uuid");
         System.out.println(resume);
         Method method = Class.forName("com.javaops.webapp.model.Resume").getDeclaredMethod("toString");
-        System.out.println(method.invoke(resume, null));
+        System.out.println(method.invoke(resume));
     }
 }
