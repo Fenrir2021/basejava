@@ -54,10 +54,10 @@ public abstract class AbstractArrayStorageTest {
         storage.update(new Resume("uuid_4"));
     }
 
-    @Test
+    @Test(expected = AssertionError.class)
     public void update() {
         storage.update(new Resume(UUID_1));
-        Assert.assertNotSame(resume1, storage.get(UUID_1));
+        Assert.assertSame(resume1, storage.get(UUID_1));
     }
 
     @Test
@@ -68,10 +68,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void save() {
-        int checkSize = storage.size();
         storage.save(new Resume(UUID_5));
-        assertNotNull(storage.get(UUID_5));
-        Assert.assertNotEquals(checkSize, storage.size());
+        Assert.assertEquals(new Resume(UUID_5), storage.get(UUID_5));
     }
 
     @Test(expected = ExistStorageException.class)
@@ -92,9 +90,9 @@ public abstract class AbstractArrayStorageTest {
             for (String str : strArray) {
                 storage.save(new Resume(str));
             }
+        } catch (StorageException e) {
             storage.save(resume10001);
             fail("Expected StorageException");
-        } catch (StorageException e) {
             assertNotEquals("", e.getMessage());
         }
     }
@@ -102,9 +100,7 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void deleteExist() {
         storage.delete(UUID_2);
-        int checkSize = storage.size();
-        assertNull(storage.get(UUID_2));
-        Assert.assertNotEquals(checkSize, storage.size());
+        Assert.assertEquals(resume2, storage.get(UUID_2));
     }
 
     @Test(expected = NotExistStorageException.class)
