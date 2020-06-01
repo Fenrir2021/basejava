@@ -70,6 +70,7 @@ public abstract class AbstractArrayStorageTest {
     public void save() {
         storage.save(new Resume(UUID_5));
         Assert.assertEquals(new Resume(UUID_5), storage.get(UUID_5));
+        Assert.assertEquals(5, storage.size());
     }
 
     @Test(expected = ExistStorageException.class)
@@ -101,6 +102,7 @@ public abstract class AbstractArrayStorageTest {
     public void deleteExist() {
         storage.delete(UUID_2);
         Assert.assertEquals(resume2, storage.get(UUID_2));
+        Assert.assertEquals(3, storage.size());
     }
 
     @Test(expected = NotExistStorageException.class)
