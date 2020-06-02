@@ -40,13 +40,13 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void size() {
-        Assert.assertEquals(4, storage.size());
+        checkSize(4);
     }
 
     @Test
     public void clear() {
         storage.clear();
-        Assert.assertEquals(0, storage.size());
+        checkSize(0);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -54,9 +54,9 @@ public abstract class AbstractArrayStorageTest {
         storage.update(new Resume("uuid_4"));
     }
 
-    @Test(expected = AssertionError.class)
+    @Test
     public void update() {
-        storage.update(new Resume(UUID_1));
+        storage.update(resume1);
         Assert.assertSame(resume1, storage.get(UUID_1));
     }
 
@@ -70,7 +70,7 @@ public abstract class AbstractArrayStorageTest {
     public void save() {
         storage.save(new Resume(UUID_5));
         Assert.assertEquals(new Resume(UUID_5), storage.get(UUID_5));
-        Assert.assertEquals(5, storage.size());
+        checkSize(5);
     }
 
     @Test(expected = ExistStorageException.class)
@@ -78,7 +78,7 @@ public abstract class AbstractArrayStorageTest {
         storage.save(resume4);
     }
 
-    @Test
+    @Test(expected = StorageException.class)
     public void saveOverflow() {
         String[] strArray = new String[STORAGE_LIMIT];
         try {
@@ -92,20 +92,22 @@ public abstract class AbstractArrayStorageTest {
                 storage.save(new Resume(str));
             }
         } catch (StorageException e) {
-            storage.save(resume10001);
             fail("Expected StorageException");
-            assertNotEquals("", e.getMessage());
         }
+        storage.save(resume10001);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void deleteExist() {
         storage.delete(UUID_2);
+        checkSize(3);
         Assert.assertEquals(resume2, storage.get(UUID_2));
+
     }
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
+        checkSize(4);
         storage.delete(UUID_5);
     }
 
@@ -119,5 +121,7 @@ public abstract class AbstractArrayStorageTest {
         storage.get("dummy");
     }
 
-
+    private void checkSize(int checkSize) {
+        assertEquals(checkSize, storage.size());
+    }
 }
